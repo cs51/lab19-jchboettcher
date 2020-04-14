@@ -63,7 +63,7 @@ let unit_test_within (tolerance : float)
                      (msg : string)
                    : unit =
   unit_test (test_value -. expected < tolerance) msg ;;
-    
+
 (* verify condition format_string ... -- Verifies that the boolean
    condition evaluates to true, continuing silently if so; if the
    condition fails (evaluates to false) it prints the format_string,
