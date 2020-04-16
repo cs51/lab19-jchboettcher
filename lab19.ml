@@ -13,9 +13,9 @@ exception ATMNext ;;
 (* ... exiting the ATM machine emulation *)
 exception ATMFinished ;;
 
-(* atm initial -- Emulate an ATM communicating over stdin and stdout
-   with customers until finished. The provided initial is an initial
-   set of accounts to use. *)
+(* atm initial -- Emulate an ATM communicating over `stdin` and
+   `stdout` with customers until finished. The provided `initial` is
+   an initial set of accounts to use. *)
 let atm (initial : ATM.account_spec list) : unit =
 
   (* prime the set of accounts, assigning each an id and recording
@@ -39,8 +39,8 @@ let atm (initial : ATM.account_spec list) : unit =
 
           (* balance inquiry *)
           | Balance ->
-             ATM.present_message (sprintf "Current balance: %d"
-                                          (ATM.get_balance id))
+             ATM.present_message
+               (sprintf "Current balance: %d" (ATM.get_balance id))
 
           (* withdrawal *)
           | Withdraw amount ->
@@ -50,13 +50,15 @@ let atm (initial : ATM.account_spec list) : unit =
              else
                (ATM.update_balance id (bal - amount);
                 ATM.deliver_cash amount;
-                ATM.present_message (sprintf "New balance: %d" (ATM.get_balance id)))
+                ATM.present_message
+                  (sprintf "New balance: %d" (ATM.get_balance id)))
 
           (* deposit *)
           | Deposit amount ->
              let bal = ATM.get_balance id in
              ATM.update_balance id (bal + amount);
-             ATM.present_message (sprintf "New balance: %d" (ATM.get_balance id))
+             ATM.present_message
+               (sprintf "New balance: %d" (ATM.get_balance id))
 
           (* done with this customer; move on to the next *)
           | Next ->
